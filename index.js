@@ -1,9 +1,10 @@
 window.addEventListener('load', function () {
-  var ws = new WebSocket('ws://localhost:3000/');
+  var ws = new WebSocket('ws://localhost:8080/lil');
   var ul = document.querySelector('ul');
   var newnode = document.createElement('div');
   var body = document.querySelector('body');
   var btn = document.querySelector('button');
+  var btnClose = document.querySelector('.close');
   var input = document.querySelector('input');
   newnode.innerHTML = "Close";
   ws.addEventListener('message', function (event) {
@@ -14,11 +15,13 @@ window.addEventListener('load', function () {
   ws.onopen = () => {
     newnode.innerHTML = "OK";
     body.insertBefore(newnode, ul);
-    ws.send('Giga');
   };
   btn.addEventListener('click', function () {
     if (newnode.innerHTML === 'close' || !input.value) return;
     ws.send(input.value);
     input.value = '';
   });
+  btnClose.addEventListener('click', () => {
+    ws.close();
+  })
   });
