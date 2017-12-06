@@ -1,13 +1,8 @@
+const WebSocket =  require('ws');
 const http = require('http');
-const ws = require('ws');
-const httpserver = new http.Server();
 const url = require('url');
-httpserver.on("request", function (req, res) {
-  return;
-  console.log(req.url);
-});
+const server = new WebSocket.Server({port:8080});
 var historyMessages = [];
-const server = new ws.Server({server:httpserver, port:8080});
 server.on("connection", function (ws, req) {
   var path = url.parse(req.url, true).pathname;
   ws.send(path);
